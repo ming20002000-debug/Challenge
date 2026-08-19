@@ -1,101 +1,356 @@
-// ============================================================
-// 이상형 월드컵 후보 데이터
-// ============================================================
-// 이 배열 안의 항목을 자유롭게 추가 / 삭제 / 수정하세요.
-// 앱 로직(script.js)은 절대 건드릴 필요 없이, 이 파일만 고치면 됩니다.
-//
-// [필드 설명]
-//   id        : 다른 항목과 겹치지 않는 고유 값 (자유롭게 작성 가능)
-//   name      : 화면에 표시될 이름
-//   group     : 소속 그룹 (표시용, 없으면 "" 로 비워두면 됨)
-//   gender    : "female" 또는 "male" 만 사용 — 이 값으로 여돌/남돌을 구분합니다
-//   youtubeId : 유튜브 영상 주소의 v= 뒤에 오는 11자리 코드
-//               예) https://www.youtube.com/watch?v=dQw4w9WgXcQ  ->  dQw4w9WgXcQ
-//   start     : 영상이 몇 초부터 재생될지 (직캠 하이라이트 구간부터 보여주고 싶을 때 사용, 기본 0)
-//
-// 엠넷(M Countdown / MPD직캠·입덕직캠), 팬사인회 직캠, 팬미팅/미니팬미팅,
-// 대학교 축제 직캠, 그리고 방송사 공식 음악방송·연말 가요제 채널(SBS 인기가요/
-// 안방1열/가요대전, KBS 뮤직뱅크/K-Fancam/가요대축제, MBC 가요대제전·예능연구소,
-// JTBC K-909 등) 소스는 전부 빼고, 그룹 자체 콘서트/월드투어·팬콘서트(위버스콘 등)·
-// 코첼라/콤플렉스콘 같은 대형 뮤직페스티벌 직캠 등 "비공식" 소스로만,
-// 그것도 춤 위주 풀샷 직캠으로만 채웠습니다.
-// ============================================================
+/**
+ * ============================================================================
+ *  아이돌 챌린지 월드컵 - 데이터 파일 (data.js)
+ * ============================================================================
+ *  이 파일 하나만 수정하면 대회 항목을 자유롭게 추가·수정·삭제할 수 있습니다.
+ *  코드(app.js)는 절대 건드릴 필요 없습니다.
+ *
+ *  각 항목(객체)의 필드 설명
+ *  ----------------------------------------------------------------------
+ *  id            : 고유 번호. 다른 항목과 겹치지 않게만 하면 숫자/문자 상관없음.
+ *  challengeName : 챌린지(원조 안무/유행)의 이름. 카드에 크게 표시됩니다.
+ *  idolName      : 원조로 인정되는 아이돌(또는 팀) 이름.
+ *  group         : 소속 그룹명. 솔로거나 그룹 자체가 이름이면 idolName과 같아도 됩니다.
+ *  gender        : "F" = 여돌, "M" = 남돌. 대진 매칭에 사용되는 핵심 값입니다.
+ *  youtubeId     : 유튜브 영상 주소에서 v= 뒤에 오는 11자리 코드.
+ *                  예) https://www.youtube.com/watch?v=abcdefgh123  ->  "abcdefgh123"
+ *  startSeconds  : (선택) 영상 재생을 몇 초부터 시작할지. 챌린지 부분부터 보여주고
+ *                  싶을 때 초 단위로 입력하세요. 모르면 0으로 두면 처음부터 재생됩니다.
+ *  source        : (선택) 참고한 기사/자료 링크. 검증용이니 없어도 동작에는 문제 없음.
+ *
+ *  새 항목을 추가하려면 아래 배열 맨 끝에 { ... } 형태로 하나 더 추가하고
+ *  콤마(,)를 잘 챙겨주세요. 편집기(editor.html)를 이용하면 이 파일을 몰라도
+ *  화면에서 편하게 추가/수정 후 새 data.js를 내려받을 수 있습니다.
+ * ============================================================================
+ */
 
-const CANDIDATES = [
-  // ---- 여돌 (female) ----
-  { id: "f01", name: "장원영", group: "IVE", gender: "female", youtubeId: "l9srwSYo3pk", start: 0 },
-  { id: "f02", name: "안유진", group: "IVE", gender: "female", youtubeId: "u0aLZOX-NL0", start: 0 },
-  { id: "f03", name: "리즈", group: "IVE", gender: "female", youtubeId: "R-Gca6PZewM", start: 0 },
-  { id: "f04", name: "가을", group: "IVE", gender: "female", youtubeId: "UiYUVhsBraM", start: 0 },
-  { id: "f05", name: "레이", group: "IVE", gender: "female", youtubeId: "IvXOC2BQlzk", start: 0 },
-  { id: "f06", name: "이서", group: "IVE", gender: "female", youtubeId: "sb26ec8dx5g", start: 0 },
-  { id: "f07", name: "민지", group: "NewJeans", gender: "female", youtubeId: "_Fhb8GXOn0o", start: 0 },
-  { id: "f08", name: "하니", group: "NewJeans", gender: "female", youtubeId: "MVdLV3PUk00", start: 0 },
-  { id: "f09", name: "다니엘", group: "NewJeans", gender: "female", youtubeId: "2NsxQm9NFv4", start: 0 },
-  { id: "f10", name: "해린", group: "NewJeans", gender: "female", youtubeId: "4vFY26vTpxw", start: 0 },
-  { id: "f11", name: "예지", group: "ITZY", gender: "female", youtubeId: "e7_fiFrqUug", start: 0 },
-  { id: "f12", name: "카리나", group: "aespa", gender: "female", youtubeId: "3NSjQWShlPs", start: 0 },
-  { id: "f13", name: "지젤", group: "aespa", gender: "female", youtubeId: "RrB145feSs4", start: 0 },
-  { id: "f14", name: "윈터", group: "aespa", gender: "female", youtubeId: "Ot0mCaycFBw", start: 0 },
-  { id: "f15", name: "닝닝", group: "aespa", gender: "female", youtubeId: "M6xAM5zIaog", start: 0 },
-  { id: "f16", name: "사쿠라", group: "LE SSERAFIM", gender: "female", youtubeId: "dqLHnjmqKdE", start: 0 },
-  { id: "f17", name: "김채원", group: "LE SSERAFIM", gender: "female", youtubeId: "Ey1V4zngUxg", start: 0 },
-  { id: "f18", name: "허윤진", group: "LE SSERAFIM", gender: "female", youtubeId: "2qLc56aSEME", start: 0 },
-  { id: "f19", name: "카즈하", group: "LE SSERAFIM", gender: "female", youtubeId: "RrQBipDdWWs", start: 0 },
-  { id: "f20", name: "홍은채", group: "LE SSERAFIM", gender: "female", youtubeId: "Qa8JHTseLnk", start: 0 },
-  { id: "f21", name: "미연", group: "(여자)아이들", gender: "female", youtubeId: "0GCVGUMrAnc", start: 0 },
-  { id: "f22", name: "소연", group: "(여자)아이들", gender: "female", youtubeId: "fjyAU6qcQtk", start: 0 },
-  { id: "f23", name: "리사", group: "BLACKPINK", gender: "female", youtubeId: "uV7dGqB7Xck", start: 0 },
-  { id: "f24", name: "슈화", group: "(여자)아이들", gender: "female", youtubeId: "AVk-_jgpws0", start: 0 },
-  { id: "f25", name: "민니", group: "(여자)아이들", gender: "female", youtubeId: "GjLc2z8z3nA", start: 0 },
-  { id: "f26", name: "수민", group: "STAYC", gender: "female", youtubeId: "cvo-S-myqPw", start: 0 },
-  { id: "f27", name: "시은", group: "STAYC", gender: "female", youtubeId: "SsAPQ2UHX2I", start: 0 },
-  { id: "f28", name: "아이사", group: "STAYC", gender: "female", youtubeId: "VWcnF2RrAuY", start: 0 },
-  { id: "f29", name: "세은", group: "STAYC", gender: "female", youtubeId: "mWh2bAT-DOM", start: 0 },
-  { id: "f30", name: "윤", group: "STAYC", gender: "female", youtubeId: "LPx5ikK6alY", start: 0 },
-  { id: "f31", name: "설윤", group: "NMIXX", gender: "female", youtubeId: "gxVhPwg7iDw", start: 0 },
-  { id: "f32", name: "배이", group: "NMIXX", gender: "female", youtubeId: "d1nXrRnHaBo", start: 0 },
-  { id: "f33", name: "사나", group: "TWICE", gender: "female", youtubeId: "44r6ROjc9dY", start: 0 },
-  { id: "f34", name: "아현", group: "BABYMONSTER", gender: "female", youtubeId: "GLgaTC2AF0g", start: 0 },
-  { id: "f35", name: "권은비", group: "SOLO", gender: "female", youtubeId: "CfwQ2fe7LH0", start: 0 },
-  { id: "f36", name: "다영", group: "LIGHTSUM", gender: "female", youtubeId: "LXsBBQ8MLFo", start: 0 },
-  { id: "f37", name: "최예나", group: "SOLO", gender: "female", youtubeId: "6cZ7hpFJ8XM", start: 0 },
+const CHALLENGE_DATA = [
+  // ------------------------- 남돌 (Male idols) -------------------------
+  {
+    id: "m01",
+    challengeName: "아무노래 챌린지",
+    idolName: "지코",
+    group: "지코 (전 블락비)",
+    gender: "M",
+    youtubeId: "UdyjeUwPz_E",
+    startSeconds: 0,
+    source: "https://namu.wiki/w/%EC%95%84%EB%AC%B4%EB%85%B8%EB%9E%98"
+  },
+  {
+    id: "m02",
+    challengeName: "Left and Right 챌린지",
+    idolName: "정국",
+    group: "방탄소년단",
+    gender: "M",
+    youtubeId: "SxB8Gi87c7w",
+    startSeconds: 0,
+    source: "https://www.allkpop.com/article/2022/09/charlie-puth-and-bts-jungkooks-left-and-right-mv-hits-200-million-views-on-youtube"
+  },
+  {
+    id: "m03",
+    challengeName: "Kick It 챌린지",
+    idolName: "NCT 127",
+    group: "NCT 127",
+    gender: "M",
+    youtubeId: "2OvyA2__Eas",
+    startSeconds: 0,
+    source: "https://www.kpopmap.com/nct-127-invites-you-to-participate-in-kickitchallenge-with-them/"
+  },
+  {
+    id: "m04",
+    challengeName: "손오공 챌린지",
+    idolName: "세븐틴",
+    group: "세븐틴",
+    gender: "M",
+    youtubeId: "-GQg25oP0S4",
+    startSeconds: 0,
+    source: "https://www.wikitree.co.kr/articles/850839"
+  },
+  {
+    id: "m05",
+    challengeName: "특(S-Class) 챌린지",
+    idolName: "스트레이 키즈",
+    group: "Stray Kids",
+    gender: "M",
+    youtubeId: "MmFuxhOVz_I",
+    startSeconds: 0,
+    source: "https://x.com/Stray_Kids/status/1664516889564049408"
+  },
+  {
+    id: "m06",
+    challengeName: "사랑을 했다 챌린지",
+    idolName: "아이콘",
+    group: "iKON",
+    gender: "M",
+    youtubeId: "vecSVX1QYbQ",
+    startSeconds: 0,
+    source: "https://www.tiktok.com/discover/%EC%82%AC%EB%9E%91%EC%9D%84-%ED%96%88%EB%8B%A4-%EC%B1%8C%EB%A6%B0%EC%A7%80-%EC%95%84%EC%9D%B4%EC%BD%98"
+  },
+  {
+    id: "m07",
+    challengeName: "다이너마이트 챌린지",
+    idolName: "방탄소년단",
+    group: "방탄소년단",
+    gender: "M",
+    youtubeId: "gdZLi9oWNZg",
+    startSeconds: 0,
+    source: "https://www.koreaboo.com/news/bts-starts-dynamite-tiktok-challenge-asks-fans-join-in-party/"
+  },
+  {
+    id: "m08",
+    challengeName: "맛(Hot Sauce) 챌린지",
+    idolName: "NCT DREAM",
+    group: "NCT DREAM",
+    gender: "M",
+    youtubeId: "PkKnp4SdE-w",
+    startSeconds: 0,
+    source: "https://filmot.com/video/qc0mfbKXp9E/"
+  },
+  {
+    id: "m09",
+    challengeName: "BAD 챌린지",
+    idolName: "에이티즈",
+    group: "ATEEZ",
+    gender: "M",
+    youtubeId: "-q_S27LbNKU",
+    startSeconds: 0,
+    source: "https://www.youtube.com/watch?v=WumtpeTUsu8"
+  },
+  {
+    id: "m10",
+    challengeName: "Love Language 안무 챌린지",
+    idolName: "투모로우바이투게더",
+    group: "TXT",
+    gender: "M",
+    youtubeId: "8aRTMQvbODs",
+    startSeconds: 0,
+    source: "https://x.com/TXT_bighit/status/1927303817747403120"
+  },
+  {
+    id: "m11",
+    challengeName: "닥터! 닥터! 챌린지",
+    idolName: "제로베이스원",
+    group: "ZEROBASEONE",
+    gender: "M",
+    youtubeId: "9BXF8gSpEwY",
+    startSeconds: 0,
+    source: "https://www.raonnews.com/news/article.html?no=44255"
+  },
+  {
+    id: "m12",
+    challengeName: "Nectar 안무 챌린지",
+    idolName: "더보이즈",
+    group: "THE BOYZ",
+    gender: "M",
+    youtubeId: "X1fx08M_SSY",
+    startSeconds: 0,
+    source: "https://www.heraldpop.com/article/3357669"
+  },
+  {
+    id: "m13",
+    challengeName: "VAGABOND 챌린지",
+    idolName: "트렌드지",
+    group: "TRENDZ",
+    gender: "M",
+    youtubeId: "TXGuS2gxA1A",
+    startSeconds: 0,
+    source: "https://news.nate.com/view/20221208n08568"
+  },
+  {
+    id: "m14",
+    challengeName: "한탕(One Shot) 챌린지",
+    idolName: "펜타곤",
+    group: "PENTAGON",
+    gender: "M",
+    youtubeId: "tc7IGPzG2Xg",
+    startSeconds: 0,
+    source: "https://theqoo.net/index.php?mid=ktalk&document_srl=2337660125"
+  },
+  {
+    id: "m15",
+    challengeName: "그루비(Groovy) 챌린지",
+    idolName: "크래비티",
+    group: "CRAVITY",
+    gender: "M",
+    youtubeId: "SPhna363o2M",
+    startSeconds: 0,
+    source: "http://www.osen.co.kr/article/G1112064528"
+  },
+  {
+    id: "m16",
+    challengeName: "판타지아(FANTASIA) 챌린지",
+    idolName: "몬스타엑스",
+    group: "MONSTA X",
+    gender: "M",
+    youtubeId: "AlxVkWRal2s",
+    startSeconds: 0,
+    source: "https://news.nate.com/view/20200605n10190?mid=n1101"
+  },
 
-  // ---- 남돌 (male) ----
-  { id: "m01", name: "성현", group: "CORTIS", gender: "male", youtubeId: "9jegttnJ0xI", start: 0 },
-  { id: "m02", name: "민규", group: "SEVENTEEN", gender: "male", youtubeId: "pG1suajo1qM", start: 0 },
-  { id: "m03", name: "도겸", group: "SEVENTEEN", gender: "male", youtubeId: "49wOLt8NukQ", start: 0 },
-  { id: "m04", name: "건호", group: "CORTIS", gender: "male", youtubeId: "zASwV4Gyjb0", start: 0 },
-  { id: "m05", name: "승관", group: "SEVENTEEN", gender: "male", youtubeId: "aRU7hu-eYrA", start: 0 },
-  { id: "m06", name: "우지", group: "SEVENTEEN", gender: "male", youtubeId: "PlpDU3xKFWI", start: 0 },
-  { id: "m07", name: "현진", group: "Stray Kids", gender: "male", youtubeId: "LnwOgkjAetM", start: 0 },
-  { id: "m08", name: "필릭스", group: "Stray Kids", gender: "male", youtubeId: "WLDwJ14a9Dw", start: 0 },
-  { id: "m09", name: "방찬", group: "Stray Kids", gender: "male", youtubeId: "pv1RKntil7Q", start: 0 },
-  { id: "m10", name: "리노", group: "Stray Kids", gender: "male", youtubeId: "3CJAlqUw0Pc", start: 0 },
-  { id: "m11", name: "창빈", group: "Stray Kids", gender: "male", youtubeId: "ECoZW4PJkHA", start: 0 },
-  { id: "m12", name: "아이엔", group: "Stray Kids", gender: "male", youtubeId: "vvJgT5rYOY4", start: 0 },
-  { id: "m13", name: "산", group: "ATEEZ", gender: "male", youtubeId: "Wnn9lPBXchs", start: 0 },
-  { id: "m14", name: "우영", group: "ATEEZ", gender: "male", youtubeId: "WosbWEa_h9E", start: 0 },
-  { id: "m15", name: "준규", group: "TREASURE", gender: "male", youtubeId: "J8hs3NfFcRw", start: 0 },
-  { id: "m16", name: "윤호", group: "ATEEZ", gender: "male", youtubeId: "GfzHbmnGKJU", start: 0 },
-  { id: "m17", name: "홍중", group: "ATEEZ", gender: "male", youtubeId: "ei6hd8h-l2I", start: 0 },
-  { id: "m18", name: "지훈", group: "TWS", gender: "male", youtubeId: "FClNgjguhos", start: 0 },
-  { id: "m19", name: "수빈", group: "TXT", gender: "male", youtubeId: "b5jEFLf1S9E", start: 0 },
-  { id: "m20", name: "연준", group: "TXT", gender: "male", youtubeId: "KmfZYKINzgc", start: 0 },
-  { id: "m21", name: "범규", group: "TXT", gender: "male", youtubeId: "jKWbJrk7PNE", start: 0 },
-  { id: "m22", name: "태현", group: "TXT", gender: "male", youtubeId: "c1aBT1lQh-w", start: 0 },
-  { id: "m23", name: "태산", group: "BOYNEXTDOOR", gender: "male", youtubeId: "fjHmmWYlIuA", start: 0 },
-  { id: "m24", name: "니키", group: "ENHYPEN", gender: "male", youtubeId: "z8Y56_uzr8Q", start: 0 },
-  { id: "m25", name: "제이", group: "ENHYPEN", gender: "male", youtubeId: "GFedKEBm7BU", start: 0 },
-  { id: "m26", name: "성훈", group: "ENHYPEN", gender: "male", youtubeId: "yf5hOAf8n8I", start: 0 },
-  { id: "m27", name: "정원", group: "ENHYPEN", gender: "male", youtubeId: "0ks-KJ06c2o", start: 0 },
-  { id: "m28", name: "희승", group: "ENHYPEN", gender: "male", youtubeId: "Y61jyfDyZEU", start: 0 },
-  { id: "m29", name: "선우", group: "ENHYPEN", gender: "male", youtubeId: "IGn9a2F2j_4", start: 0 },
-  { id: "m30", name: "승한", group: "RIIZE", gender: "male", youtubeId: "UQ_xkbJB7Dw", start: 0 },
-  { id: "m31", name: "원빈", group: "RIIZE", gender: "male", youtubeId: "TkaTJ0eSmyE", start: 0 },
-  { id: "m32", name: "명재현", group: "BOYNEXTDOOR", gender: "male", youtubeId: "nsEQpEdEgzY", start: 0 },
-  { id: "m33", name: "정국", group: "BTS", gender: "male", youtubeId: "p0nPyE-dv9Q", start: 0 },
-  { id: "m34", name: "정국", group: "BTS", gender: "male", youtubeId: "_hz5DdNp8is", start: 0 },
-  { id: "m35", name: "이상원", group: "ALPHA DRIVE ONE", gender: "male", youtubeId: "yqQ8Tc83aRY", start: 0 },
-  { id: "m36", name: "앤톤", group: "RIIZE", gender: "male", youtubeId: "_qz9uOc_ee0", start: 0 },
+  // ------------------------- 여돌 (Female idols) -------------------------
+  {
+    id: "f01",
+    challengeName: "마리아 챌린지",
+    idolName: "화사",
+    group: "화사 (마마무)",
+    gender: "F",
+    youtubeId: "tDukIfFzX18",
+    startSeconds: 0,
+    source: "https://v.daum.net/v/jpBX0RXEHm?f=p"
+  },
+  {
+    id: "f02",
+    challengeName: "퀸카(Queencard) 챌린지",
+    idolName: "전소연",
+    group: "(여자)아이들",
+    gender: "F",
+    youtubeId: "AKg_9dn_VmA",
+    startSeconds: 0,
+    source: "https://namu.wiki/w/%ED%80%B8%EC%B9%B4%20(Queencard)"
+  },
+  {
+    id: "f03",
+    challengeName: "하입보이(Hype Boy) 챌린지",
+    idolName: "뉴진스",
+    group: "NewJeans",
+    gender: "F",
+    youtubeId: "FhjaCdgtN2A",
+    startSeconds: 0,
+    source: "https://www.nocutnews.co.kr/news/6406559"
+  },
+  {
+    id: "f04",
+    challengeName: "보라빛 밤 챌린지",
+    idolName: "선미",
+    group: "선미",
+    gender: "F",
+    youtubeId: "Is7glC9Jp7Q",
+    startSeconds: 0,
+    source: "https://www.hankookilbo.com/News/Read/A202006241311000051"
+  },
+  {
+    id: "f05",
+    challengeName: "The Feels 챌린지",
+    idolName: "트와이스",
+    group: "TWICE",
+    gender: "F",
+    youtubeId: "f5_wn8mexmM",
+    startSeconds: 0,
+    source: "https://www.tiktok.com/discover/Feels-%EC%B1%8C%EB%A6%B0%EC%A7%80"
+  },
+  {
+    id: "f06",
+    challengeName: "해야(HEYA) 챌린지",
+    idolName: "장원영",
+    group: "IVE",
+    gender: "F",
+    youtubeId: "QwP9-ZCuEXI",
+    startSeconds: 0,
+    source: "https://www.tiktok.com/tag/%EC%9E%A5%EC%9B%90%EC%98%81%EC%B1%8C%EB%A6%B0%EC%A7%80"
+  },
+  {
+    id: "f07",
+    challengeName: "뿜뿜(BBoom BBoom) 챌린지",
+    idolName: "모모랜드",
+    group: "MOMOLAND",
+    gender: "F",
+    youtubeId: "JQGRg8XBnB4",
+    startSeconds: 0,
+    source: "https://www.mksports.co.kr/news/entertain/9741990"
+  },
+  {
+    id: "f08",
+    challengeName: "춤(CHOOM) 챌린지",
+    idolName: "베이비몬스터",
+    group: "BABYMONSTER",
+    gender: "F",
+    youtubeId: "H3OknbTnIDk",
+    startSeconds: 0,
+    source: "https://www.spotvnews.co.kr/news/articleView.html?idxno=817812"
+  },
+  {
+    id: "f09",
+    challengeName: "마그네틱(Magnetic) 챌린지",
+    idolName: "아일릿",
+    group: "ILLIT",
+    gender: "F",
+    youtubeId: "Vk5-c_v4gMU",
+    startSeconds: 0,
+    source: "https://www.mhnse.com/news/articleView.html?idxno=338328"
+  },
+  {
+    id: "f10",
+    challengeName: "덤더럼(Dumhdurum) 챌린지",
+    idolName: "에이핑크",
+    group: "Apink",
+    gender: "F",
+    youtubeId: "ho3060cUdF0",
+    startSeconds: 0,
+    source: "https://weverse.io/apink/media/0-105457539?hl=ko"
+  },
+  {
+    id: "f11",
+    challengeName: "슈퍼 그럼요(Super Yuppers!) 챌린지",
+    idolName: "우주소녀 쪼꼬미",
+    group: "WJSN Chocome",
+    gender: "F",
+    youtubeId: "i_RDuVQnYjo",
+    startSeconds: 0,
+    source: "https://www.starnewskorea.com/music/2022/02/02/2022012811341087756"
+  },
+  {
+    id: "f12",
+    challengeName: "LIGHTS ON 챌린지",
+    idolName: "위클리",
+    group: "Weeekly",
+    gender: "F",
+    youtubeId: "chyiT611zHM",
+    startSeconds: 0,
+    source: "https://www.heraldpop.com/article/3450054"
+  },
+  {
+    id: "f13",
+    challengeName: "MANIAC 챌린지",
+    idolName: "비비지",
+    group: "VIVIZ",
+    gender: "F",
+    youtubeId: "BtXGQGNCtyo",
+    startSeconds: 0,
+    source: "https://news.nate.com/view/20231214n33702"
+  },
+  {
+    id: "f14",
+    challengeName: "Cupid 챌린지",
+    idolName: "피프티피프티",
+    group: "FIFTY FIFTY",
+    gender: "F",
+    youtubeId: "dsL8VvJnrFo",
+    startSeconds: 0,
+    source: "https://www.tiktok.com/discover/cupid-fifty-fifty-dance"
+  },
+  {
+    id: "f15",
+    challengeName: "ASAP 챌린지",
+    idolName: "스테이씨",
+    group: "STAYC",
+    gender: "F",
+    youtubeId: "NsY-9MCOIAQ",
+    startSeconds: 0,
+    source: "https://v.daum.net/v/cRPMtKY7qI"
+  },
+  {
+    id: "f16",
+    challengeName: "톰보이(TOMBOY) 챌린지",
+    idolName: "(여자)아이들",
+    group: "(여자)아이들",
+    gender: "F",
+    youtubeId: "Jh4QFaPmdss",
+    startSeconds: 0,
+    source: "https://namu.wiki/w/TOMBOY(i-dle)"
+  }
 ];
+
+// 브라우저와 Node.js(편집기 내보내기 등) 양쪽에서 다 쓸 수 있도록 내보내기 처리
+if (typeof module !== "undefined" && module.exports) {
+  module.exports = CHALLENGE_DATA;
+}
