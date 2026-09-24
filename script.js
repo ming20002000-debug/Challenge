@@ -158,6 +158,8 @@
   const frameRight = document.getElementById("frameRight");
   const nameLeft = document.getElementById("nameLeft");
   const nameRight = document.getElementById("nameRight");
+  const songLeft = document.getElementById("songLeft");
+  const songRight = document.getElementById("songRight");
   const groupLeft = document.getElementById("groupLeft");
   const groupRight = document.getElementById("groupRight");
 
@@ -187,10 +189,12 @@
 
     frameLeft.src = ytEmbedUrl(match.left);
     nameLeft.textContent = match.left.name;
+    songLeft.textContent = match.left.song || "";
     groupLeft.textContent = match.left.group || "";
 
     frameRight.src = ytEmbedUrl(match.right);
     nameRight.textContent = match.right.name;
+    songRight.textContent = match.right.song || "";
     groupRight.textContent = match.right.group || "";
   }
 
@@ -237,12 +241,14 @@
 
   const frameResult = document.getElementById("frameResult");
   const resultName = document.getElementById("resultName");
+  const resultSong = document.getElementById("resultSong");
   const resultGroup = document.getElementById("resultGroup");
 
   function showResult(winner) {
     showScreen("screen-result");
     frameResult.src = ytEmbedUrl(winner);
     resultName.textContent = winner.name;
+    resultSong.textContent = winner.song || "";
     resultGroup.textContent = winner.group || "";
   }
 
